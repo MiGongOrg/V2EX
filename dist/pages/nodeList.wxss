@@ -1,0 +1,2 @@
+@import "./../components/postItem.wxss";
+@import "./../components/nodeInfo.wxss";

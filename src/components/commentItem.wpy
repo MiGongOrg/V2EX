@@ -1,0 +1,72 @@
+<style lang="less">
+  .commentItemContent {
+    display: flex;
+    border-bottom: 2rpx solid #e2e2e2;
+    padding: 10rpx;
+    .commentAvatar {
+      width: 48rpx;
+      height: 48rpx;
+      border-radius: 8rpx;
+    }
+    .commentInfo {
+      box-sizing: border-box;
+      display: flex;
+      flex-wrap: wrap;
+      flex: 1;
+      width: 100%;
+      padding-left: 20rpx;
+    }
+    .commentUserinfo {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 48rpx;
+      width: 100%;
+      color: #cccccc;
+    }
+    .commentUsername {
+      color: gray;
+      font-weight: bold;
+      margin-right: 20rpx;
+      display: inline-block;
+    }
+    .commentIndex {
+      font-size: 18rpx;
+      font-weight: 500;
+      border-radius: 20rpx;
+      display: inline-block;
+      background-color: #f0f0f0;
+      color: #cccccc;
+      padding: 4rpx 10rpx;
+    }
+    .commentText {
+      width: 100%;
+      word-break:break-all;
+    }
+  }
+</style>
+
+<template lang="wxml">
+  <view class="commentItemContent">
+    <image class="commentAvatar" src="{{item.member.avatar_normal}}"></image>
+    <view class="commentInfo">
+      <view class="commentUserinfo">
+        <view>
+          <navigator class="commentUsername" url="/pages/user?id={{item.member.id}}&username={{item.member.username}}">{{item.member.username}}</navigator>
+          <text>{{item.created}}</text>
+        </view>
+        <view><text class="commentIndex">{{index+1}}</text></view>
+      </view>
+      <view class="commentText">{{item.content}}</view>
+    </view>
+  </view>
+</template>
+
+<script>
+  import wepy from 'wepy'
+
+  export default class CommentItem extends wepy.component {
+    // 页面的生命周期函数
+    onLoad () {}
+  }
+</script>

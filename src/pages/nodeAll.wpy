@@ -1,0 +1,72 @@
+<style type="less">
+  .nodeAllContainer {
+    box-sizing: border-box;
+    overflow-x: hidden;
+    padding: 10rpx;
+    background-color: #e2e2e2;
+    .nodeAllRepeat {
+      display: flex;
+      flex-wrap: wrap;
+      padding: 10rpx;
+      color: #778087;
+      background-color: #ffffff;
+      margin-bottom: 10rpx;
+      font-size: 28rpx;
+      border-radius: 6rpx;
+      box-shadow: 0 4rpx 6rpx rgba(0, 0, 0, 0.1);
+    }
+  }
+</style>
+
+<template>
+  <view class="nodeAllContainer">
+    <view class="nodeAllRepeat">
+      <repeat for="{{node}}" item="item" index="index">
+        <nodeAllItem :item="item" :index="index"></nodeAllItem>
+      </repeat>
+    </view>
+  </view>
+</template>
+
+<script>
+  import wepy from 'wepy'
+  // 引入组件
+  import NodeAllItem from '../components/nodeAllItem'
+  import { URLS, HTTP } from '../common'
+
+  export default class NodeAll extends wepy.page {
+    // 页面配置
+    config = {
+      'navigationBarTitleText': '全部节点'
+    }
+    // 模板初始绑定数据
+    data = {
+      node: {}
+    }
+    // 声明页面中将要使用到的组件
+    components = {
+      nodeAllItem: NodeAllItem
+    }
+    // 请求数据
+    request () {
+      let _this = this
+      let url = URLS.nodes.all
+      HTTP.get(url).then((data) => {
+        _this.node = data
+        _this.$apply()
+      })
+    }
+    // 生命周期函数，页面加载
+    onLoad () {
+      let _this = this
+      _this.request()
+    }
+    // 生命周期函数，初次渲染完成
+    onReady () {}
+    // 监听用户下拉动作
+    onPullDownRefresh () {
+      // 加载数据完成后停止下拉状态
+      wepy.stopPullDownRefresh()
+    }
+  }
+</script>

@@ -1,0 +1,2 @@
+@import "./postItem.wxss";
+.userPostsContainer .shieldingPost{display:flex;justify-content:center;flex-wrap:wrap;padding:10rpx}.userPostsContainer .shieldingPost image{width:256rpx;height:256rpx;margin:10rpx}.userPostsContainer .shieldingPost text{box-sizing:border-box;width:100%;font-size:28rpx;color:#999999;padding:20rpx 40rpx;text-align:center}

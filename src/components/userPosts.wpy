@@ -1,0 +1,78 @@
+<style lang="less">
+  .userPostsContainer {
+    .shieldingPost {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      padding: 10rpx;
+      image {
+        width: 256rpx;
+        height: 256rpx;
+        margin: 10rpx;
+      }
+      text {
+        box-sizing: border-box;
+        width: 100%;
+        font-size: 28rpx;
+        color: #999999;
+        padding:20rpx 40rpx;
+        text-align:center;
+      }
+    }
+  }
+</style>
+
+<template lang="wxml">
+  <view class="userPostsContainer">
+    <view class="shieldingPost" wx:if="{{!list.length}}">
+      <image src="../images/lock256.png"></image>
+      <text>{{syncUser.username}} 还没有发表过任何主题</text>
+    </view>
+    <repeat for="{{list}}" item="item">
+      <postItem :item="item"></postItem>
+    </repeat>
+  </view>
+</template>
+
+<script>
+  import wepy from 'wepy'
+  // 引入组件
+  import PostItem from './postItem'
+  import { Utils, URLS, HTTP } from '../common'
+
+  export default class Comment extends wepy.component {
+    // 模板初始绑定数据
+    data = {
+      list: []
+    }
+    // 动态传值
+    props = {
+      syncUser: {
+        type: String,
+        default: 'null'
+      }
+    }
+    // 声明页面中将要使用到的组件
+    components = {
+      postItem: PostItem
+    }
+    // 请求数据
+    request (options) {
+      let _this = this
+      let username = options.username
+
+      let url = URLS.topics.show + '?username=' + username
+
+      HTTP.get(url).then((data) => {
+        let type = 'avatar_large'
+        // 头像URL替换
+        data = Utils.replace(data, type)
+
+        _this.list = data
+        _this.$apply()
+      })
+    }
+    // 页面的生命周期函数
+    onLoad () {}
+  }
+</script>

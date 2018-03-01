@@ -1,0 +1,21 @@
+
+  <view class="hotContainer">
+    <block wx:for="{{list}}" wx:for-index="index" wx:for-item="item" wx:key="key">
+      
+  <view class="postItem" bindtap="$postItem$click" data-com-index="{{index}}" data-wpyclick-a="{{item.id}}">
+    <image src="{{item.member.avatar_large}}"/>
+    <view class="post">
+      <view>{{item.title}}</view>
+      <view class="postFooter">
+        <text class="nodeTitle">{{item.node.title}}</text>
+        <text class="username">{{item.member.username}}</text>
+        <text class="created">{{item.created}}</text>
+      </view>
+    </view>
+    <view class="replies">
+      <text>{{item.replies}}</text>
+    </view>
+  </view>
+
+    </block>
+  </view>

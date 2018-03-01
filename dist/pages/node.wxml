@@ -1,0 +1,16 @@
+
+  <view class="nodeContainer">
+    <navigator class="viewNodeAll" url="/pages/nodeAll">查看全部节点</navigator>
+    <block wx:for="{{node}}" wx:for-index="index" wx:for-item="item" wx:key="key">
+      
+  <view class="nodeItemContainer">
+    <view class="nodeBoxHeader">{{item.header}}</view>
+    <view class="nodeContent">
+      <navigator url="/pages/nodeList?id={{item.id}}&title={{item.title}}"  wx:for="{{item.nodes}}" wx:key="key">{{item.title}}</navigator>
+    </view>
+    <view class="nodeBoxFooter">{{item.footer}}</view>
+  </view>
+
+    </block>
+    <navigator class="viewNodeAll" url="/pages/nodeAll">查看全部节点</navigator>
+  </view>

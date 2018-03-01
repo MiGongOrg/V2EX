@@ -1,0 +1,75 @@
+
+  <view class="userContainer">
+    <view class="userContent">
+      <image class="userAvatar" src="{{user.avatar_large}}"/>
+      <view class="userinfo">
+        <text class="userBigName">{{user.username}}</text>
+        <text class="tagline">{{user.tagline}}</text>
+        <text class="bio">{{user.bio}}</text>
+      </view>
+      <view class="widgets"  wx:if="user.twitter || user.website || user.location || user.github || user.btc">
+        <view class="socialLabel" wx:if="{{user.twitter}}">
+          <image src="../images/social_twitter.png"/>
+          <text>{{user.twitter}}</text>
+        </view>
+        <view class="socialLabel" wx:elif="{{user.website}}">
+          <image src="../images/social_home.png"/>
+          <text>{{user.website}}</text>
+        </view>
+        <view class="socialLabel" wx:elif="{{user.location}}">
+          <image src="../images/social_geo.png"/>
+          <text>{{user.location}}</text>
+        </view>
+        <view class="socialLabel" wx:elif="{{user.github}}">
+          <image src="../images/social_github.png"/>
+          <text>{{user.github}}</text>
+        </view>
+        <view class="socialLabel" wx:elif="{{user.btc}}">
+          <image src="../images/social_btc.png"/>
+          <text>{{user.btc}}</text>
+        </view>
+      </view>
+      <view class="userOther">
+        <text class="userCreated">第 {{user.id}} 号会员，加入于：{{user.created}}</text>
+      </view>
+    </view>
+    <view class="userPosts">
+      <view class="postHeader">
+        <image src="{{user.avatar_large}}"/>
+        <text>{{user.username}} 的主题</text>
+      </view>
+      
+      
+  <view class="userPostsContainer">
+    <view class="shieldingPost"  wx:if="{{!$userPosts$list.length}}">
+      <image src="../images/lock256.png"/>
+      <text>{{$userPosts$syncUser.username}} 还没有发表过任何主题</text>
+    </view>
+    <block wx:for="{{$userPosts$list}}" wx:for-index="$userPosts$index" wx:for-item="$userPosts$item" wx:key="$userPosts$key">
+      
+  <view class="postItem" bindtap="$userPosts$postItem$click" data-com-index="{{$userPosts$index}}" data-wpyclick-a="{{$userPosts$item.id}}">
+    <image src="{{$userPosts$item.member.avatar_large}}"/>
+    <view class="post">
+      <view>{{$userPosts$item.title}}</view>
+      <view class="postFooter">
+        <text class="nodeTitle">{{$userPosts$item.node.title}}</text>
+        <text class="username">{{$userPosts$item.member.username}}</text>
+        <text class="created">{{$userPosts$item.created}}</text>
+      </view>
+    </view>
+    <view class="replies">
+      <text>{{$userPosts$item.replies}}</text>
+    </view>
+  </view>
+
+    </block>
+  </view>
+
+    </view>
+  </view>
+  
+  <view class="footerContainer">
+    <view class="footerContent">
+      <text>{{$footer$footer.title}} - {{$footer$footer.slogan}}</text>
+    </view>
+  </view>

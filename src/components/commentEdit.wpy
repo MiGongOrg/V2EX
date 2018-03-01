@@ -1,0 +1,110 @@
+<style lang="less">
+  .commnetEditContainer {
+    box-sizing: border-box;
+    background-color: #ffffff;
+    border-radius: 6rpx;
+    box-shadow: 0 4rpx 6rpx rgba(0,0,0,0.1);
+    border-bottom: 2rpx solid #e2e2e2;
+    margin-top: 10rpx;
+    font-size: 28rpx;
+    .commentForm {
+      padding: 10rpx;
+    }
+    .commentContent {
+      box-sizing: border-box;
+      height: 224rpx;
+      width: 100%;
+      border: 2rpx solid #cccccc;
+      border-radius: 6rpx;
+      padding: 10rpx;
+      margin-bottom: 10rpx;
+    }
+    .commentBtn {
+      height: 60rpx;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      font-size: 28rpx;
+    }
+    .commentEditHeader {
+      color: #999999;
+      padding: 10rpx;
+      font-size: 28rpx;
+      text-align: right;
+      border-bottom: 2rpx solid #e2e2e2;
+    }
+    .commentEditFooter {
+      padding: 10rpx;
+      border-top: 2rpx solid #e2e2e2;
+      text-align: right;
+      color: #778087;
+    }
+  }
+</style>
+
+<template lang="wxml">
+  <view class="commnetEditContainer">
+    <view class="commentEditHeader">
+      <text @tap="goTop()">回到顶部</text>
+    </view>
+    <view class="commentForm">
+      <form @submit="send">
+        <textarea class="commentContent" value="{{comment.value}}" placeholder="假装可以回复" maxlength="200" name="comment" />
+        <button form-type="submit" class="commentBtn">回复</button>
+      </form>
+    </view>
+    <view class="commentEditFooter">
+      <text>V2EX</text>
+    </view>
+  </view>
+</template>
+
+<script>
+  import wepy from 'wepy'
+
+  export default class Comment extends wepy.component {
+    // 模板初始绑定数据
+    data = {
+      comment: {
+        value: ''
+      }
+    }
+    methods = {
+      goTop () {
+        // 返回顶部
+        wepy.pageScrollTo({
+          scrollTop: 0,
+          duration: 500
+        })
+      },
+      send (event) {
+        let title = '友情提示'
+        let content = event.detail.value.comment
+
+        if (!content) {
+          content = '假装可以回复，你懂的。'
+        } else {
+          title = '假装可以回复'
+        }
+        // showModal
+        wepy.showModal({
+          title: title,
+          content: content,
+          cancelColor: '#cccccc',
+          cancelText: '任性',
+          confirmColor: '#2c2c2c',
+          confirmText: '知道了',
+          success: function(res) {
+            if (res.confirm) {
+              console.log('用户点击确定')
+            } else if (res.cancel) {
+              console.log('用户点击取消')
+            }
+          }
+        })
+      }
+    }
+    // 页面的生命周期函数
+    onLoad () {}
+  }
+</script>

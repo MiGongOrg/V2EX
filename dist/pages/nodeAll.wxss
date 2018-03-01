@@ -1,0 +1,2 @@
+@import "./../components/nodeAllItem.wxss";
+.nodeAllContainer{box-sizing:border-box;overflow-x:hidden;padding:10rpx;background-color:#e2e2e2}.nodeAllContainer .nodeAllRepeat{display:flex;flex-wrap:wrap;padding:10rpx;color:#778087;background-color:#ffffff;margin-bottom:10rpx;font-size:28rpx;border-radius:6rpx;box-shadow:0 4rpx 6rpx rgba(0,0,0,0.1)}

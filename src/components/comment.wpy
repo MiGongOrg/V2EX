@@ -1,0 +1,49 @@
+<style lang="less">
+  .commentItemContainer {
+    font-size: 28rpx;
+  }
+</style>
+
+<template lang="wxml">
+  <view class="commentItemContainer">
+    <repeat for="{{comment}}" item="item" index="index">
+      <commentItem :item="item" :index="index"></commentItem>
+    </repeat>
+  </view>
+</template>
+
+<script>
+  import wepy from 'wepy'
+  // 引入组件
+  import CommentItem from './commentItem'
+  import { Utils, URLS, HTTP } from '../common'
+
+  export default class Comment extends wepy.component {
+    // 模板初始绑定数据
+    data = {
+      comment: []
+    }
+    // 声明页面中将要使用到的组件
+    components = {
+      commentItem: CommentItem
+    }
+    // 请求数据
+    request (options) {
+      let _this = this
+      let id = options.id
+
+      let url = URLS.replies + '?topic_id=' + id
+
+      HTTP.get(url).then((data) => {
+        let type = 'avatar_normal'
+        // 头像URL替换
+        data = Utils.replace(data, type)
+
+        _this.comment = data
+        _this.$apply()
+      })
+    }
+    // 页面的生命周期函数
+    onLoad () {}
+  }
+</script>

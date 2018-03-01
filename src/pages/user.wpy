@@ -1,0 +1,203 @@
+<style type="less">
+  .userContainer {
+    box-sizing: border-box;
+    overflow-x: hidden;
+    padding: 10rpx;
+    background-color: #e2e2e2;
+    .userContent {
+      box-sizing:border-box;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      padding-top:20rpx;
+      background-color: #fff;
+      border-radius: 6rpx;
+      box-shadow: 0 4rpx 6rpx rgba(0, 0, 0, 0.1);
+    }
+    .userinfo {
+      padding: 10rpx;
+      border-bottom: 2rpx solid #e2e2e2;
+    }
+    .userinfo, .userOther {
+      width: 100%;
+    }
+    .userAvatar {
+      width: 146rpx;
+      height: 146rpx;
+    }
+    .userBigName, .tagline, .userCreated, .bio {
+      width: 100%;
+      display: block;
+      text-align: center;
+    }
+    .userBigName {
+      font-size: 48rpx;
+    }
+    .tagline, .bio {
+      font-size: 32rpx;
+    }
+    .userCreated {
+      font-size: 28rpx;
+      padding: 10rpx;
+      color: #999999;
+    }
+    .widgets {
+      width: 100%;
+      display: flex;
+      flex-wrap: wrap;
+      border-bottom: 2rpx solid #e2e2e2;
+    }
+    .socialLabel {
+      display:flex;
+      justify-content: center;
+      align-items: center;
+      word-break: break-all;
+      background-color: #f9f9f9;
+      padding: 10rpx 30rpx 10rpx 10rpx;
+      font-size: 28rpx;
+      display: inline-block;
+      border-radius: 40rpx;
+      outline: none;
+      margin: 10rpx;
+      image {
+        width: 48rpx;
+        height: 48rpx;
+        vertical-align:middle;
+        margin-right: 10rpx;
+      }
+    }
+    .userPosts {
+      margin-top: 10rpx;
+      background-color: #ffffff;
+      border-radius: 6rpx;
+      box-shadow: 0 4rpx 6rpx rgba(0, 0, 0, 0.1);
+      border-bottom: 2rpx solid #e2e2e2;
+    }
+    .postHeader {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20rpx;
+      border-bottom: 2rpx solid #e2e2e2;
+      font-size: 24rpx;
+      image {
+        width: 48rpx;
+        height: 48rpx;
+        border-radius: 50%;
+      }
+    }
+  }
+</style>
+
+<template>
+  <view class="userContainer">
+    <view class="userContent">
+      <image class="userAvatar" src="{{user.avatar_large}}"></image>
+      <view class="userinfo">
+        <text class="userBigName">{{user.username}}</text>
+        <text class="tagline">{{user.tagline}}</text>
+        <text class="bio">{{user.bio}}</text>
+      </view>
+      <view class="widgets" wx:if="user.twitter || user.website || user.location || user.github || user.btc">
+        <view class="socialLabel" wx:if="{{user.twitter}}">
+          <image src="../images/social_twitter.png"></image>
+          <text>{{user.twitter}}</text>
+        </view>
+        <view class="socialLabel" wx:elif="{{user.website}}">
+          <image src="../images/social_home.png"></image>
+          <text>{{user.website}}</text>
+        </view>
+        <view class="socialLabel" wx:elif="{{user.location}}">
+          <image src="../images/social_geo.png"></image>
+          <text>{{user.location}}</text>
+        </view>
+        <view class="socialLabel" wx:elif="{{user.github}}">
+          <image src="../images/social_github.png"></image>
+          <text>{{user.github}}</text>
+        </view>
+        <view class="socialLabel" wx:elif="{{user.btc}}">
+          <image src="../images/social_btc.png"></image>
+          <text>{{user.btc}}</text>
+        </view>
+      </view>
+      <view class="userOther">
+        <text class="userCreated">第 {{user.id}} 号会员，加入于：{{user.created}}</text>
+      </view>
+    </view>
+    <view class="userPosts">
+      <view class="postHeader">
+        <image src="{{user.avatar_large}}"></image>
+        <text>{{user.username}} 的主题</text>
+      </view>
+      
+      <userPosts :syncUser.sync="user"></userPosts>
+    </view>
+  </view>
+  <footer></footer>
+</template>
+
+<script>
+  // 引入组件
+  import wepy from 'wepy'
+  import UserPosts from '../components/userPosts'
+  import Footer from '../components/footer'
+  import { URLS, HTTP } from '../common'
+
+  export default class User extends wepy.page {
+    // 模板初始绑定数据
+    data = {
+      user: {
+        twitter: false,
+        website: false,
+        location: false,
+        github: false,
+        btc: false
+      }
+    }
+    // 声明页面中将要使用到的组件
+    components = {
+      userPosts: UserPosts,
+      footer: Footer
+    }
+    request (options) {
+      let _this = this
+      let id = options.id
+      let url = URLS.members + '?id=' + id
+
+      HTTP.get(url).then((data) => {
+        // 格式化加入时间
+        let date = new Date(data.created * 1000)
+        data.created = date.toLocaleString()
+        // 处理头像URL
+        data.avatar_large = data.avatar_large.replace('//', 'https://')
+
+        _this.user = data
+        _this.$apply()
+        // 设置当前页面的标题
+        wepy.setNavigationBarTitle({
+          title: _this.user.username
+        })
+      })
+    }
+    // 生命周期函数，页面加载
+    onLoad (options) {
+      // 导航条 Loading
+      wepy.showNavigationBarLoading()
+      let _this = this
+      _this.request(options)
+
+      // 调用组件 userPosts 中的 request 方法，并传递参数对象 options
+      this.$invoke('userPosts', 'request', options)
+    }
+    // 生命周期函数，初次渲染完成
+    onReady () {
+      // 隐藏导航条 Loading
+      wepy.hideNavigationBarLoading()
+    }
+    // 监听用户下拉动作
+    onPullDownRefresh () {
+      // 加载数据完成后停止下拉状态
+      wepy.stopPullDownRefresh()
+    }
+  }
+</script>

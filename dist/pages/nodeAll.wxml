@@ -1,0 +1,10 @@
+
+  <view class="nodeAllContainer">
+    <view class="nodeAllRepeat">
+      <block wx:for="{{node}}" wx:for-index="index" wx:for-item="item" wx:key="key">
+        
+  <navigator class="nodeTag" url="/pages/nodeList?id={{item.id}}&title={{item.title}}">{{item.title}}</navigator>
+
+      </block>
+    </view>
+  </view>

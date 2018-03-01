@@ -1,0 +1,54 @@
+<style lang="less">
+  .footerContainer {
+    color: #999;
+    background-color: #ffffff;
+    padding: 0 20rpx;
+    margin-top: 10rpx;
+  }
+  .footerContent {
+    font-size: 28rpx;
+    padding: 10rpx;
+    text-align: right;
+  }
+</style>
+
+<template lang="wxml">
+  <view class="footerContainer">
+    <view class="footerContent">
+      <text>{{footer.title}} - {{footer.slogan}}</text>
+    </view>
+  </view>
+</template>
+
+<script>
+  import wepy from 'wepy'
+
+  export default class Footer extends wepy.component {
+    // 模板初始绑定数据
+    data = {
+      footer: {
+        title: 'V2EX',
+        slogan: 'way to explore'
+      }
+    }
+    // 请求数据
+    request () {
+      let _this = this
+      wepy.request({
+        url: 'https://www.v2ex.com/api/site/info.json',
+        header: {
+          'Content-Type': 'application/json'
+        },
+        success: function (result) {
+          _this.footer = result.data
+          _this.$apply()
+        }
+      })
+    }
+    // 页面的生命周期函数
+    onLoad () {
+      // let _this = this
+      // _this.request()
+    }
+  }
+</script>

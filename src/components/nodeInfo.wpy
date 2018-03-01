@@ -1,0 +1,80 @@
+<style lang="less">
+  .nodeinfoContainer {
+    display: flex;
+    justify-content: space-between;
+    background-color: #001d25;
+    color: #ffffff;
+    padding: 20rpx;
+    border-bottom: 2rpx solid #e2e2e2;
+    .nodeAvatar {
+      vertical-align: middle;
+      margin-right: 10rpx;
+      width: 72rpx;
+      height: 72rpx;
+    }
+    .nodeinfoContent {
+      display: flex;
+      flex-wrap: wrap;
+      flex: 1;
+    }
+    .nodeinfoHeader {
+      width: 100%;
+      font-size: 28rpx;
+    }
+    .nodeinfoStats {
+      width: 100%;
+      font-size: 24rpx;
+    }
+  }
+</style>
+
+<template lang="wxml">
+  <view class="nodeinfoContainer">
+    <image class="nodeAvatar" src="{{nodeinfo.avatar_large === avatar.diff ? avatar.large : nodeinfo.avatar_large}}"></image>
+    <view class="nodeinfoContent">
+      <view class="nodeinfoHeader">
+        <text>{{nodeinfo.header ? nodeinfo.header : nodeinfo.title}}</text>
+      </view>
+      <view class="nodeinfoStats">
+        <text>主题总数 {{nodeinfo.topics}} / 共有 {{nodeinfo.stars}} 人关注</text>
+      </view>
+    </view>
+  </view>
+</template>
+
+<script>
+  import wepy from 'wepy'
+  import { URLS, HTTP } from '../common'
+
+  export default class Nodeinfo extends wepy.component {
+    // 模板初始绑定数据
+    data = {
+      nodeinfo: {},
+      avatar: {
+        diff: '/static/img/node_large.png',
+        large: '../images/node_large.png'
+      }
+    }
+    // 请求数据
+    request (options) {
+      let _this = this
+      let id = options.id
+
+      let url = URLS.nodes.show + '?id=' + id
+
+      HTTP.get(url).then((data) => {
+        _this.node = data
+        // 处理头像URL
+        data.avatar_large = data.avatar_large.replace('//', 'https://')
+        // 过滤HTML标签
+        if (data.header) {
+          data.header = data.header.replace(/<([^>]*)>/g, '')
+        }
+        _this.nodeinfo = data
+        _this.$apply()
+      })
+    }
+    // 页面的生命周期函数
+    onLoad () {}
+  }
+</script>

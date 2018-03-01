@@ -1,0 +1,1 @@
+.nodeTag{display:flex;box-sizing:border-box;background-color:#f9f9f9;padding:10rpx 20rpx;border-radius:40rpx;margin:10rpx;word-wrap:break-word}

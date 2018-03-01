@@ -1,0 +1,2 @@
+@import "./commentItem.wxss";
+.commentItemContainer{font-size:28rpx}

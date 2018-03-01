@@ -1,0 +1,75 @@
+
+  <import src="./../common/wxParse/wxParse.wxml"/>
+  <view class="articleContainer">
+    <view class="articleContent">
+      <view class="articleHeader">
+        <view class="userAndNode">
+          <navigator class="nodeNav" url="/pages/nodeList?id={{article.node.id}}&title={{article.node.title}}">
+            <image class="nodeAvatar" src="{{article.node.avatar_normal === avatar.diff ? avatar.normal : article.node.avatar_normal}}"/>
+            <text>{{article.node.title}}</text>
+          </navigator>
+          <navigator url="/pages/user?id={{article.member.id}}&username={{article.member.username}}">
+            <image class="userAvatar" src="{{article.member.avatar_large}}"/>
+          </navigator>
+        </view>
+        <text class="title">{{article.title}}</text>
+        <view class="userinfo">
+          <view>By <navigator url="/pages/user?id={{article.member.id}}&username={{article.member.username}}">{{article.member.username}}</navigator> at {{article.created}}</view>
+          <view class="shareBtn">
+            <button open-type="share"><image src="../images/ic_share.png"/></button>
+          </view>
+        </view>
+      </view>
+      <view class="article">
+        <template is="wxParse" data="{{wxParseData:rendered.nodes}}"/>
+      </view>
+    </view>
+    <view class="articleComment">
+      <view class="commentHeader">
+        <text class="commentCount">{{article.replies}} 回复</text>
+        <text>{{article.created}}</text>
+      </view>
+      <block  wx:if="{{article.replies}}">
+        
+  <view class="commentItemContainer">
+    <block wx:for="{{$comment$comment}}" wx:for-index="$comment$index" wx:for-item="$comment$item" wx:key="$comment$key">
+      
+  <view class="commentItemContent">
+    <image class="commentAvatar" src="{{$comment$item.member.avatar_normal}}"/>
+    <view class="commentInfo">
+      <view class="commentUserinfo">
+        <view>
+          <navigator class="commentUsername" url="/pages/user?id={{$comment$item.member.id}}&username={{$comment$item.member.username}}">{{$comment$item.member.username}}</navigator>
+          <text>{{$comment$item.created}}</text>
+        </view>
+        <view><text class="commentIndex">{{$comment$index+1}}</text></view>
+      </view>
+      <view class="commentText">{{$comment$item.content}}</view>
+    </view>
+  </view>
+
+    </block>
+  </view>
+
+      </block>
+      <view class="noComments"  wx:else>
+        <text>目前尚无回复</text>
+      </view>
+    </view>
+    
+  <view class="commnetEditContainer">
+    <view class="commentEditHeader">
+      <text bindtap="$commentEdit$goTop" data-wpygotop-a="">回到顶部</text>
+    </view>
+    <view class="commentForm">
+      <form bindsubmit="$commentEdit$send">
+        <textarea class="commentContent" value="{{$commentEdit$comment.value}}" placeholder="假装可以回复" maxlength="200" name="comment"/>
+        <button form-type="submit" class="commentBtn">回复</button>
+      </form>
+    </view>
+    <view class="commentEditFooter">
+      <text>V2EX</text>
+    </view>
+  </view>
+
+  </view>

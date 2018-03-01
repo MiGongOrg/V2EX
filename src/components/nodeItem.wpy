@@ -1,0 +1,52 @@
+<style lang="less">
+  .nodeItemContainer {
+    background-color: #ffffff;
+    margin-bottom: 10rpx;
+    font-size: 28rpx;
+    border-radius: 6rpx;
+    box-shadow: 0 4rpx 6rpx rgba(0, 0, 0, 0.1);
+  }
+  .nodeBoxHeader, .nodeBoxFooter {
+    color: #cccccc;
+    padding:10rpx;
+  }
+  .nodeBoxFooter {
+    text-align: right;
+  }
+  .nodeContent {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 10rpx;
+    color: #778087;
+    border-bottom: 2rpx solid #e2e2e2;
+    border-top: 2rpx solid #e2e2e2;
+    navigator {
+      display: flex;
+      box-sizing: border-box;
+      background-color: #f9f9f9;
+      padding: 10rpx 20rpx;
+      border-radius: 40rpx;
+      margin: 10rpx;
+      word-wrap: break-word;
+    }
+  }
+</style>
+
+<template lang="wxml">
+  <view class="nodeItemContainer">
+    <view class="nodeBoxHeader">{{item.header}}</view>
+    <view class="nodeContent">
+      <navigator url="/pages/nodeList?id={{item.id}}&title={{item.title}}" wx:for="{{item.nodes}}" wx:key="key">{{item.title}}</navigator>
+    </view>
+    <view class="nodeBoxFooter">{{item.footer}}</view>
+  </view>
+</template>
+
+<script>
+  import wepy from 'wepy'
+
+  export default class NodeItem extends wepy.component {
+    // 页面的生命周期函数
+    onLoad () {}
+  }
+</script>

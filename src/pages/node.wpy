@@ -1,0 +1,309 @@
+<style type="less">
+  .nodeContainer {
+    box-sizing: border-box;
+    overflow-x: hidden;
+    padding: 10rpx;
+    background-color: #e2e2e2;
+    .viewNodeAll {
+      text-align: center;
+      padding: 10rpx;
+      color: #778087;
+      background-color: #ffffff;
+      margin-bottom: 10rpx;
+      font-size: 28rpx;
+      border-radius: 6rpx;
+      box-shadow: 0 4rpx 6rpx rgba(0, 0, 0, 0.1);
+    }
+  }
+</style>
+
+<template>
+  <view class="nodeContainer">
+    <navigator class="viewNodeAll" url="/pages/nodeAll">查看全部节点</navigator>
+    <repeat for="{{node}}" item="item" index="index">
+      <nodeItem :item="item" :index="index"></nodeItem>
+    </repeat>
+    <navigator class="viewNodeAll" url="/pages/nodeAll">查看全部节点</navigator>
+  </view>
+</template>
+
+<script>
+  import wepy from 'wepy'
+  // 引入组件
+  import NodeItem from '../components/nodeItem'
+
+  export default class Node extends wepy.page {
+    // 页面配置
+    config = {
+      'navigationBarTitleText': '节点'
+    }
+    // 模板初始绑定数据
+    data = {
+      node: [{
+        'header': '分享与探索',
+        'footer': '分享与探索',
+        'nodes': [{
+          'id': 12,
+          'title': '问与答'
+        },
+        {
+          'id': 16,
+          'title': '分享发现'
+        },
+        {
+          'id': 17,
+          'title': '分享创造'
+        },
+        {
+          'id': 99,
+          'title': '分享邀请码'
+        },
+        {
+          'id': 519,
+          'title': '奇思妙想'
+        },
+        {
+          'id': 53,
+          'title': '自言自语'
+        },
+        {
+          'id': 59,
+          'title': '随想'
+        },
+        {
+          'id': 215,
+          'title': '设计'
+        }]
+      },
+      {
+        'header': 'Geek',
+        'footer': 'Geek',
+        'nodes': [{
+          'id': 300,
+          'title': '程序员'
+        },
+        {
+          'id': 90,
+          'title': 'Python'
+        },
+        {
+          'id': 39,
+          'title': 'Android'
+        },
+        {
+          'id': 108,
+          'title': '宽带症候群'
+        },
+        {
+          'id': 11,
+          'title': 'Linux'
+        },
+        {
+          'id': 62,
+          'title': 'PHP'
+        },
+        {
+          'id': 104,
+          'title': '云计算'
+        },
+        {
+          'id': 52,
+          'title': '硬件'
+        },
+        {
+          'id': 190,
+          'title': '外包'
+        },
+        {
+          'id': 436,
+          'title': 'Node.js'
+        },
+        {
+          'id': 63,
+          'title': 'Java'
+        },
+        {
+          'id': 79,
+          'title': '服务器'
+        },
+        {
+          'id': 403,
+          'title': 'Bitcoin'
+        },
+        {
+          'id': 61,
+          'title': 'MySQL'
+        },
+        {
+          'id': 413,
+          'title': '编程'
+        },
+        {
+          'id': 208,
+          'title': 'Linode'
+        },
+        {
+          'id': 176,
+          'title': '汽车'
+        },
+        {
+          'id': 301,
+          'title': '设计师'
+        },
+        {
+          'id': 37,
+          'title': 'Kindle'
+        },
+        {
+          'id': 513,
+          'title': 'Markdown'
+        },
+        {
+          'id': 311,
+          'title': 'MongoDB'
+        },
+        {
+          'id': 361,
+          'title': 'Tornado'
+        },
+        {
+          'id': 81,
+          'title': 'Ruby on Rails'
+        },
+        {
+          'id': 340,
+          'title': 'Minecraft'
+        },
+        {
+          'id': 73,
+          'title': '字体排印'
+        },
+        {
+          'id': 47,
+          'title': 'Redis'
+        },
+        {
+          'id': 367,
+          'title': 'Ruby'
+        },
+        {
+          'id': 310,
+          'title': '商业模式'
+        },
+        {
+          'id': 24,
+          'title': '数学'
+        },
+        {
+          'id': 58,
+          'title': 'Photoshop'
+        },
+        {
+          'id': 371,
+          'title': 'Amazon'
+        },
+        {
+          'id': 485,
+          'title': 'LEGO'
+        },
+        {
+          'id': 294,
+          'title': 'SONY'
+        },
+        {
+          'id': 883,
+          'title': '自然语言处理'
+        },
+        {
+          'id': 985,
+          'title': 'Serverless'
+        },
+        {
+          'id': 1005,
+          'title': 'C#'
+        }]
+      },
+      {
+        'header': '游戏',
+        'footer': '游戏',
+        'nodes': [{
+          'id': 55,
+          'title': '游戏'
+        },
+        {
+          'id': 675,
+          'title': 'PlayStation 4'
+        },
+        {
+          'id': 454,
+          'title': '英雄联盟'
+        },
+        {
+          'id': 172,
+          'title': 'iGame'
+        },
+        {
+          'id': 324,
+          'title': 'Battlefield 3'
+        },
+        {
+          'id': 98,
+          'title': 'StarCraft 2'
+        },
+        {
+          'id': 33,
+          'title': 'PlayStation 3'
+        },
+        {
+          'id': 378,
+          'title': 'World of Warcraft'
+        },
+        {
+          'id': 511,
+          'title': 'EVE'
+        },
+        {
+          'id': 34,
+          'title': 'Xbox 360'
+        },
+        {
+          'id': 959,
+          'title': 'Nintendo Switch'
+        },
+        {
+          'id': 981,
+          'title': '王者荣耀'
+        },
+        {
+          'id': 686,
+          'title': 'Battlefield 4'
+        },
+        {
+          'id': 508,
+          'title': 'Gran Turismo'
+        },
+        {
+          'id': 36,
+          'title': 'Wii'
+        },
+        {
+          'id': 748,
+          'title': 'Wii U'
+        }]
+      }]
+    }
+    // 声明页面中将要使用到的组件
+    components = {
+      nodeItem: NodeItem
+    }
+    // 生命周期函数，页面加载
+    onLoad () {}
+    // 生命周期函数，初次渲染完成
+    onReady () {}
+    // 监听用户下拉动作
+    onPullDownRefresh () {
+      // 加载数据完成后停止下拉状态
+      wepy.stopPullDownRefresh()
+    }
+  }
+</script>

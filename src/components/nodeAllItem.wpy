@@ -1,0 +1,24 @@
+<style lang="less">
+  .nodeTag {
+    display: flex;
+    box-sizing: border-box;
+    background-color: #f9f9f9;
+    padding: 10rpx 20rpx;
+    border-radius: 40rpx;
+    margin: 10rpx;
+    word-wrap: break-word;
+  }
+</style>
+
+<template lang="wxml">
+  <navigator class="nodeTag" url="/pages/nodeList?id={{item.id}}&title={{item.title}}">{{item.title}}</navigator>
+</template>
+
+<script>
+  import wepy from 'wepy'
+
+  export default class NodeAllItem extends wepy.component {
+    // 页面的生命周期函数
+    onLoad () {}
+  }
+</script>
