@@ -1,10 +1,18 @@
 # V2EX 小程序，基于 WePY
 
-![img](src/images/ic_hot.png)
+<img width="25%" src="src/images/review/new.jpg"/><img width="25%" src="src/images/review/hot.jpg"/><img width="25%" src="src/images/review/article.jpg"/><img width="25%" src="src/images/review/comment.jpg"/>
+
+---
+
+<img width="25%" src="src/images/review/node.jpg"/><img width="25%" src="src/images/review/node_page.jpg"/><img width="25%" src="src/images/review/user.jpg"/><img width="25%" src="src/images/review/user_nothing.jpg"/>
+
+---
+
 
 - [WePY](https://github.com/Tencent/wepy)
 - [V2EX API](https://github.com/djyde/V2EX-API)
 - [wxParse](https://github.com/icindy/wxParse)
+- [ICON](http://iconfont.cn/collections/detail?spm=a313x.7781069.0.da5a778a4&cid=33)
 
 ## 使用前安装 WePY
 
