@@ -1,5 +1,7 @@
 # V2EX 小程序，基于 WePY
 
+![img](src/images/ic_hot.png)
+
 - [WePY](https://github.com/Tencent/wepy)
 - [V2EX API](https://github.com/djyde/V2EX-API)
 - [wxParse](https://github.com/icindy/wxParse)
