@@ -4,8 +4,8 @@
       <image class="userAvatar" src="{{user.avatar_large}}"/>
       <view class="userinfo">
         <text class="userBigName">{{user.username}}</text>
-        <text class="tagline">{{user.tagline}}</text>
-        <text class="bio">{{user.bio}}</text>
+        <text class="tagline">{{user.tagline ? user.tagline : ''}}</text>
+        <text class="bio">{{user.bio ? user.bio : ''}}</text>
       </view>
       <view class="widgets"  wx:if="user.twitter || user.website || user.location || user.github || user.btc">
         <view class="socialLabel" wx:if="{{user.twitter}}">

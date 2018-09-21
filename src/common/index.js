@@ -1,5 +1,4 @@
-import Utils from './utils'
-import URLS from './urls'
-import HTTP from './http'
+import API from './api'
+import TOOL from './tool'
 
-export { Utils, URLS, HTTP }
+export { API, TOOL }

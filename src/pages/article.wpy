@@ -30,6 +30,9 @@
       display: flex;
       justify-content:center;
       align-items:center;
+      &:hover, &:active {
+        background-color: transparent;
+      }
     }
     .nodeAvatar {
       vertical-align: middle;
@@ -153,12 +156,12 @@
 
 <script>
   import wepy from 'wepy'
-  // 引入组件
+  import { API, TOOL } from '@/common'
+  import { HTTP } from 'wepy-utils'
   import CommentEdit from '../components/commentEdit'
   import Comment from '../components/comment'
   import Footer from '../components/footer'
   import WxParse from '../common/wxParse/wxParse'
-  import { Utils, URLS, HTTP } from '../common'
 
   export default class Article extends wepy.page {
     // 模板初始绑定数据
@@ -208,27 +211,32 @@
     }
     // 请求数据
     request (options) {
-      let _this = this
       let id = options.id
-      let url = URLS.topics.show + '?id=' + id
+      let url = API.topics.show
+      let params = {
+        id: id
+      }
 
-      HTTP.get(url).then((data) => {
-        _this.node = data
+      HTTP.get({
+        url: url,
+        params: params,
+        mask: true
+      }).then((data) => {
+        this.node = data
         let type = 'avatar_large'
         // 头像URL替换
-        data = Utils.replace(data, type)
-
+        data = TOOL.replace(data, type)
         let article = data[0]
         let rendered = article.content_rendered
 
-        WxParse.wxParse('rendered', 'html', rendered, _this, 0)
+        WxParse.wxParse('rendered', 'html', rendered, this, 0)
 
-        _this.article = article
+        this.article = article
 
-        _this.$apply()
+        this.$apply()
         // 设置当前页面的标题
         wepy.setNavigationBarTitle({
-          title: _this.article.title
+          title: this.article.title
         })
       })
     }
@@ -236,8 +244,7 @@
     onLoad (options) {
       // 导航条 Loading
       wepy.showNavigationBarLoading()
-      let _this = this
-      _this.request(options)
+      this.request(options)
       // 调用组件 comment 中的 request 方法，并传递参数对象 options
       this.$invoke('comment', 'request', options)
     }

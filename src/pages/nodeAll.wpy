@@ -30,9 +30,9 @@
 
 <script>
   import wepy from 'wepy'
-  // 引入组件
+  import { API } from '@/common'
+  import { HTTP } from 'wepy-utils'
   import NodeAllItem from '../components/nodeAllItem'
-  import { URLS, HTTP } from '../common'
 
   export default class NodeAll extends wepy.page {
     // 页面配置
@@ -49,17 +49,18 @@
     }
     // 请求数据
     request () {
-      let _this = this
-      let url = URLS.nodes.all
-      HTTP.get(url).then((data) => {
-        _this.node = data
-        _this.$apply()
+      let url = API.nodes.all
+      HTTP.get({
+        url: url,
+        mask: true
+      }).then((data) => {
+        this.node = data
+        this.$apply()
       })
     }
     // 生命周期函数，页面加载
     onLoad () {
-      let _this = this
-      _this.request()
+      this.request()
     }
     // 生命周期函数，初次渲染完成
     onReady () {}

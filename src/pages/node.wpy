@@ -29,7 +29,6 @@
 
 <script>
   import wepy from 'wepy'
-  // 引入组件
   import NodeItem from '../components/nodeItem'
 
   export default class Node extends wepy.page {

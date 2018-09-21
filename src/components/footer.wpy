@@ -31,24 +31,7 @@
         slogan: 'way to explore'
       }
     }
-    // 请求数据
-    request () {
-      let _this = this
-      wepy.request({
-        url: 'https://www.v2ex.com/api/site/info.json',
-        header: {
-          'Content-Type': 'application/json'
-        },
-        success: function (result) {
-          _this.footer = result.data
-          _this.$apply()
-        }
-      })
-    }
     // 页面的生命周期函数
-    onLoad () {
-      // let _this = this
-      // _this.request()
-    }
+    onLoad () {}
   }
 </script>

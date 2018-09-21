@@ -13,10 +13,10 @@
 
 <script>
   import wepy from 'wepy'
-  // 引入组件
+  import { API, TOOL } from '@/common'
+  import { HTTP } from 'wepy-utils'
   import nodeInfo from '../components/nodeInfo'
   import PostItem from '../components/postItem'
-  import { Utils, URLS, HTTP } from '../common'
 
   export default class nodeList extends wepy.page {
     // 页面配置
@@ -36,29 +36,33 @@
     }
     // 请求数据
     request (options) {
-      let _this = this
       let id = options.id
-      let url = URLS.topics.show + '?node_id=' + id
-
-      HTTP.get(url).then((data) => {
+      let url = API.topics.show
+      let params = {
+        'node_id': id
+      }
+      HTTP.get({
+        url: url,
+        params: params,
+        mask: true
+      }).then((data) => {
         let type = 'avatar_large'
         // 头像URL替换
-        data = Utils.replace(data, type)
-        _this.nodeName = options.title
-        _this.list = data
-        _this.$apply()
+        data = TOOL.replace(data, type)
+        this.nodeName = options.title
+        this.list = data
+        this.$apply()
       })
     }
     // 生命周期函数，页面加载
     onLoad (options) {
-      let _this = this
       // 设置当前页面的标题
       wepy.setNavigationBarTitle({
         title: options.title
       })
       // 调用组件 nodeinfo 中的 request 方法，并传递参数对象 options
       this.$invoke('nodeinfo', 'request', options)
-      _this.request(options)
+      this.request(options)
     }
     // 生命周期函数，初次渲染完成
     onReady () {}

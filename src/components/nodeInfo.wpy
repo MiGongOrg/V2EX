@@ -44,7 +44,8 @@
 
 <script>
   import wepy from 'wepy'
-  import { URLS, HTTP } from '../common'
+  import { API } from '@/common'
+  import { HTTP } from 'wepy-utils'
 
   export default class Nodeinfo extends wepy.component {
     // 模板初始绑定数据
@@ -59,19 +60,25 @@
     request (options) {
       let _this = this
       let id = options.id
+      let url = API.nodes.show
+      let params = {
+        id: id
+      }
 
-      let url = URLS.nodes.show + '?id=' + id
-
-      HTTP.get(url).then((data) => {
-        _this.node = data
+      HTTP.get({
+        url: url,
+        params: params,
+        mask: true
+      }).then((data) => {
+        this.node = data
         // 处理头像URL
         data.avatar_large = data.avatar_large.replace('//', 'https://')
         // 过滤HTML标签
         if (data.header) {
           data.header = data.header.replace(/<([^>]*)>/g, '')
         }
-        _this.nodeinfo = data
-        _this.$apply()
+        this.nodeinfo = data
+        this.$apply()
       })
     }
     // 页面的生命周期函数

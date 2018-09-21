@@ -12,9 +12,9 @@
 
 <script>
   import wepy from 'wepy'
-  // 引入组件
+  import { API, TOOL } from '@/common'
+  import { HTTP } from 'wepy-utils'
   import PostItem from '../components/postItem'
-  import { Utils, URLS, HTTP } from '../common'
 
   export default class NewPost extends wepy.page {
     // 页面配置
@@ -31,24 +31,21 @@
     }
     // 请求数据
     request () {
-      let _this = this
-
-      let url = URLS.topics.latest
-
-      HTTP.get(url).then((data) => {
+      let url = API.topics.latest
+      HTTP.get({
+        url: url,
+        mask: true
+      }).then((data) => {
         let type = 'avatar_large'
         // 头像URL替换
-        data = Utils.replace(data, type)
-
-        _this.list = data
-        _this.$apply()
+        data = TOOL.replace(data, type)
+        this.list = data
+        this.$apply()
       })
     }
-
     // 生命周期函数，页面加载
     onLoad () {
-      let _this = this
-      _this.request()
+      this.request()
     }
     // 生命周期函数，初次渲染完成
     onReady () {}

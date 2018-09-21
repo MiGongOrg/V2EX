@@ -1,12 +1,21 @@
 import wepy from 'wepy'
 
-export default {
+const tool = {
   replace (data, type) {
     for (var i = data.length - 1; i >= 0; i--) {
       let avatar = data[i].member[type]
       let created = data[i].created
       // 替换头像URL
       data[i].member[type] = avatar.replace('//', 'https://')
+
+      let defaultAvatar = avatar.split('?s=24')
+
+      if (defaultAvatar.length > 1) {
+        data[i].member[type] = avatar.replace('?s=24', '?s=100')
+      } else {
+        data[i].member[type] = avatar.replace('_mini', '_large')
+      }
+      
       // 替换日期格式
       data[i].created = this.timeDiff(created)
       // 替换 node 头像
@@ -63,3 +72,5 @@ export default {
     return str;
   }
 }
+
+export default tool

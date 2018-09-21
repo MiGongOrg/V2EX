@@ -95,8 +95,8 @@
       <image class="userAvatar" src="{{user.avatar_large}}"></image>
       <view class="userinfo">
         <text class="userBigName">{{user.username}}</text>
-        <text class="tagline">{{user.tagline}}</text>
-        <text class="bio">{{user.bio}}</text>
+        <text class="tagline">{{user.tagline ? user.tagline : ''}}</text>
+        <text class="bio">{{user.bio ? user.bio : ''}}</text>
       </view>
       <view class="widgets" wx:if="user.twitter || user.website || user.location || user.github || user.btc">
         <view class="socialLabel" wx:if="{{user.twitter}}">
@@ -139,9 +139,10 @@
 <script>
   // 引入组件
   import wepy from 'wepy'
+  import { API, TOOL } from '@/common'
+  import { HTTP } from 'wepy-utils'
   import UserPosts from '../components/userPosts'
   import Footer from '../components/footer'
-  import { URLS, HTTP } from '../common'
 
   export default class User extends wepy.page {
     // 模板初始绑定数据
@@ -160,22 +161,35 @@
       footer: Footer
     }
     request (options) {
-      let _this = this
       let id = options.id
-      let url = URLS.members + '?id=' + id
-
-      HTTP.get(url).then((data) => {
+      let url = API.members
+      let params = {
+        id: id
+      }
+      HTTP.get({
+        url: url,
+        params: params,
+        mask: true
+      }).then((data) => {
         // 格式化加入时间
         let date = new Date(data.created * 1000)
         data.created = date.toLocaleString()
         // 处理头像URL
         data.avatar_large = data.avatar_large.replace('//', 'https://')
 
-        _this.user = data
-        _this.$apply()
+        let userAvatar = data.avatar_large.split('?s=24')
+
+        if (userAvatar.length > 1) {
+          data.avatar_large = data.avatar_large.replace('?s=24', '?s=100')
+        } else {
+          data.avatar_large = data.avatar_large.replace('_mini', '_large')
+        }
+
+        this.user = data
+        this.$apply()
         // 设置当前页面的标题
         wepy.setNavigationBarTitle({
-          title: _this.user.username
+          title: this.user.username
         })
       })
     }
@@ -183,8 +197,7 @@
     onLoad (options) {
       // 导航条 Loading
       wepy.showNavigationBarLoading()
-      let _this = this
-      _this.request(options)
+      this.request(options)
 
       // 调用组件 userPosts 中的 request 方法，并传递参数对象 options
       this.$invoke('userPosts', 'request', options)

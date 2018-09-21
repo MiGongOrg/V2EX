@@ -36,9 +36,9 @@
 
 <script>
   import wepy from 'wepy'
-  // 引入组件
+  import { API, TOOL } from '@/common'
+  import { HTTP } from 'wepy-utils'
   import PostItem from './postItem'
-  import { Utils, URLS, HTTP } from '../common'
 
   export default class Comment extends wepy.component {
     // 模板初始绑定数据
@@ -58,18 +58,22 @@
     }
     // 请求数据
     request (options) {
-      let _this = this
       let username = options.username
+      let url = API.topics.show
+      let params = {
+        username: username
+      }
 
-      let url = URLS.topics.show + '?username=' + username
-
-      HTTP.get(url).then((data) => {
+      HTTP.get({
+        url: url,
+        params: params,
+        mask: true
+      }).then((data) => {
         let type = 'avatar_large'
         // 头像URL替换
-        data = Utils.replace(data, type)
-
-        _this.list = data
-        _this.$apply()
+        data = TOOL.replace(data, type)
+        this.list = data
+        this.$apply()
       })
     }
     // 页面的生命周期函数
