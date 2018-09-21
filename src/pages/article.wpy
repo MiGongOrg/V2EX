@@ -26,6 +26,11 @@
       width: 72rpx;
       height: 72rpx;
     }
+    .shape {
+      .userAvatar {
+        background-color: #e2e2e2;
+      }
+    }
     .nodeNav {
       display: flex;
       justify-content:center;
@@ -34,16 +39,65 @@
         background-color: transparent;
       }
     }
+    .shape {
+      .nodeNav {
+        text {
+          position: relative;
+          height: 48rpx;
+          &:before, &:after {
+            content: '';
+            position: absolute;
+            left: 0;
+            min-height: 15rpx;
+            background-color: #e2e2e2;
+          }
+          &:before {
+            top: 4rpx;
+            min-width: 100rpx;
+          }
+          &:after {
+            bottom: 4rpx;
+            min-width: 200rpx;
+          }
+        }
+      }
+    }
     .nodeAvatar {
       vertical-align: middle;
       width: 48rpx;
       height: 48rpx;
       margin-right: 10rpx;
     }
+    .shape {
+      .nodeAvatar {
+        background-color: #e2e2e2;
+      }
+    }
     .title {
       display:block;
       font-size: 44rpx;
       margin: 10rpx 0 24rpx 0;
+    }
+    .shape {
+      .title {
+        position: relative;
+        height: 70rpx;
+        &:before, &:after {
+          content: '';
+          position: absolute;
+          left: 0;
+          min-height: 30rpx;
+          background-color: #e2e2e2;
+        }
+        &:before {
+          top: 0;
+          min-width: 300rpx;
+        }
+        &:after {
+          bottom: 0;
+          min-width: 500rpx;
+        }
+      }
     }
     .userinfo {
       display: flex;
@@ -53,6 +107,22 @@
       color: #999999;
       navigator {
         display: inline-block;
+      }
+    }
+    .shape {
+      .by {
+        position: relative;
+        min-width: 200rpx;
+        min-height: 30rpx;
+        &:before {
+          content: '';
+          position: absolute;
+          top: 0;
+          right: 0;
+          bottom: 0;
+          left: 0;
+          background-color: #e2e2e2;
+        }
       }
     }
     .shareBtn {
@@ -116,7 +186,7 @@
   <import src="./../common/wxParse/wxParse.wxml" />
   <view class="articleContainer">
     <view class="articleContent">
-      <view class="articleHeader">
+      <view class="articleHeader {{article.title ? '' : 'shape'}}">
         <view class="userAndNode">
           <navigator class="nodeNav" url="/pages/nodeList?id={{article.node.id}}&title={{article.node.title}}">
             <image class="nodeAvatar" src="{{article.node.avatar_normal === avatar.diff ? avatar.normal : article.node.avatar_normal}}"></image>
@@ -128,7 +198,7 @@
         </view>
         <text class="title">{{article.title}}</text>
         <view class="userinfo">
-          <view>By <navigator url="/pages/user?id={{article.member.id}}&username={{article.member.username}}">{{article.member.username}}</navigator> at {{article.created}}</view>
+          <view class="by">By <navigator url="/pages/user?id={{article.member.id}}&username={{article.member.username}}">{{article.member.username}}</navigator> at {{article.created}}</view>
           <view class="shareBtn">
             <button open-type="share"><image src="../images/ic_share.png"></image></button>
           </view>

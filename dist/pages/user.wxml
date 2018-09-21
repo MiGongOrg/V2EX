@@ -1,6 +1,6 @@
 
   <view class="userContainer">
-    <view class="userContent">
+    <view class="userContent {{user.username ? '' : 'shape'}}">
       <image class="userAvatar" src="{{user.avatar_large}}"/>
       <view class="userinfo">
         <text class="userBigName">{{user.username}}</text>
@@ -33,7 +33,7 @@
         <text class="userCreated">第 {{user.id}} 号会员，加入于：{{user.created}}</text>
       </view>
     </view>
-    <view class="userPosts">
+    <view class="userPosts {{user.username ? '' : 'shape'}}">
       <view class="postHeader">
         <image src="{{user.avatar_large}}"/>
         <text>{{user.username}} 的主题</text>

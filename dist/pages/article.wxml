@@ -2,7 +2,7 @@
   <import src="./../common/wxParse/wxParse.wxml"/>
   <view class="articleContainer">
     <view class="articleContent">
-      <view class="articleHeader">
+      <view class="articleHeader {{article.title ? '' : 'shape'}}">
         <view class="userAndNode">
           <navigator class="nodeNav" url="/pages/nodeList?id={{article.node.id}}&title={{article.node.title}}">
             <image class="nodeAvatar" src="{{article.node.avatar_normal === avatar.diff ? avatar.normal : article.node.avatar_normal}}"/>
@@ -14,7 +14,7 @@
         </view>
         <text class="title">{{article.title}}</text>
         <view class="userinfo">
-          <view>By <navigator url="/pages/user?id={{article.member.id}}&username={{article.member.username}}">{{article.member.username}}</navigator> at {{article.created}}</view>
+          <view class="by">By <navigator url="/pages/user?id={{article.member.id}}&username={{article.member.username}}">{{article.member.username}}</navigator> at {{article.created}}</view>
           <view class="shareBtn">
             <button open-type="share"><image src="../images/ic_share.png"/></button>
           </view>
