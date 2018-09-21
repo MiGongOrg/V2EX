@@ -25,6 +25,11 @@
       width: 146rpx;
       height: 146rpx;
     }
+    .shape {
+      .userAvatar {
+        background-color: #e2e2e2;
+      }
+    }
     .userBigName, .tagline, .userCreated, .bio {
       width: 100%;
       display: block;
@@ -33,6 +38,22 @@
     .userBigName {
       font-size: 48rpx;
     }
+    .shape {
+      .userBigName {
+        position: relative;
+        min-height: 50rpx;
+        &:before {
+          content: '';
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          min-height: 30rpx;
+          min-width: 320rpx;
+          transform: translate(-50%, -50%);
+          background-color: #e2e2e2;
+        }
+      }
+    }
     .tagline, .bio {
       font-size: 32rpx;
     }
@@ -40,6 +61,21 @@
       font-size: 28rpx;
       padding: 10rpx;
       color: #999999;
+    }
+    .shape {
+      .userCreated {
+        position: relative;
+        &:before {
+          content: '';
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          min-height: 30rpx;
+          min-width: 600rpx;
+          transform: translate(-50%, -50%);
+          background-color: #e2e2e2;
+        }
+      }
     }
     .widgets {
       width: 100%;
@@ -86,12 +122,27 @@
         border-radius: 50%;
       }
     }
+    .shape {
+      .postHeader {
+        position: relative;
+        &:before {
+          content: '';
+          position: absolute;
+          min-width: 700rpx;
+          min-height: 30rpx;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          background-color: #e2e2e2;
+        }
+      }
+    }
   }
 </style>
 
 <template>
   <view class="userContainer">
-    <view class="userContent">
+    <view class="userContent {{user.username ? '' : 'shape'}}">
       <image class="userAvatar" src="{{user.avatar_large}}"></image>
       <view class="userinfo">
         <text class="userBigName">{{user.username}}</text>
@@ -124,7 +175,7 @@
         <text class="userCreated">第 {{user.id}} 号会员，加入于：{{user.created}}</text>
       </view>
     </view>
-    <view class="userPosts">
+    <view class="userPosts {{user.username ? '' : 'shape'}}">
       <view class="postHeader">
         <image src="{{user.avatar_large}}"></image>
         <text>{{user.username}} 的主题</text>
