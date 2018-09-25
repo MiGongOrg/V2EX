@@ -14,7 +14,7 @@
     "wepy": "^1.7.1",
     "wepy-async-function": "^1.4.4",
     "wepy-com-toast": "^1.0.2",
-    "wepy-utils": "^1.0.8"
+    "wepy-utils": "^1.0.9"
   },
   "devDependencies": {
     "babel-eslint": "^7.2.1",

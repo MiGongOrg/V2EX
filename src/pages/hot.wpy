@@ -35,7 +35,8 @@
       let url = API.topics.hot
       HTTP.get({
         url: url,
-        mask: true
+        mask: true,
+        loading: false
       }).then((data) => {
         let type = 'avatar_large'
         // 头像URL替换
@@ -43,20 +44,28 @@
         this.list = data
         this.$apply()
         // 加载数据完成后停止下拉状态
-        wepy.stopPullDownRefresh()
+        setTimeout(() => {
+          wepy.stopPullDownRefresh()
+          wepy.hideNavigationBarLoading()
+        }, 1000)
       }).catch((err) => {
         console.log(err)
-        wepy.stopPullDownRefresh()
+        setTimeout(() => {
+          wepy.stopPullDownRefresh()
+          wepy.hideNavigationBarLoading()
+        }, 1000)
       })
     }
     // 生命周期函数，页面加载
     onLoad () {
+      wepy.showNavigationBarLoading()
       this.request()
     }
     // 生命周期函数，初次渲染完成
     onReady () {}
     // 监听用户下拉动作
     onPullDownRefresh () {
+      wepy.showNavigationBarLoading()
       // 下拉更新，请求数据
       this.request()
     }
