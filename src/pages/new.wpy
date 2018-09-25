@@ -19,7 +19,8 @@
   export default class NewPost extends wepy.page {
     // 页面配置
     config = {
-      'navigationBarTitleText': '最新'
+      'navigationBarTitleText': '最新',
+      'enablePullDownRefresh': true
     }
     // 模板初始绑定数据
     data = {
@@ -41,6 +42,11 @@
         data = TOOL.replace(data, type)
         this.list = data
         this.$apply()
+        // 加载数据完成后停止下拉状态
+        wepy.stopPullDownRefresh()
+      }).catch((err) => {
+        console.log(err)
+        wepy.stopPullDownRefresh()
       })
     }
     // 生命周期函数，页面加载
@@ -51,11 +57,8 @@
     onReady () {}
     // 监听用户下拉动作
     onPullDownRefresh () {
-      // 加载数据完成后停止下拉状态
-      wepy.stopPullDownRefresh()
-      // 下拉更新，暂不重新获取数据，避免请求过于频繁
-      // let _this = this
-      // _this.request()
+      // 下拉更新，请求数据
+      this.request()
     }
   }
 </script>

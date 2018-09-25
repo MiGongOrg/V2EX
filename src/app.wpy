@@ -20,8 +20,7 @@ export default class extends wepy.app {
       navigationBarBackgroundColor: '#ffffff',
       navigationBarTitleText: 'V2EX',
       navigationBarTextStyle: 'black',
-      backgroundColor: '#e2e2e2',
-      enablePullDownRefresh: true
+      backgroundColor: '#e2e2e2'
     },
     'tabBar': {
       'color': '#707070',

@@ -258,10 +258,5 @@
       // 隐藏导航条 Loading
       wepy.hideNavigationBarLoading()
     }
-    // 监听用户下拉动作
-    onPullDownRefresh () {
-      // 加载数据完成后停止下拉状态
-      wepy.stopPullDownRefresh()
-    }
   }
 </script>
