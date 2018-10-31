@@ -63,6 +63,48 @@ export default class extends wepy.app {
   // 初始化只执行一次
   onLaunch() {
     console.log('V2EX')
+    // 检测版本更新
+    this.updateManager()
+  }
+  // 版本更新
+  updateManager () {
+    if (wepy.canIUse('getUpdateManager')) {
+      const updateManager = wepy.getUpdateManager()
+
+      updateManager.onCheckForUpdate(function (res) {
+        // 请求完新版本信息的回调
+        if (res.hasUpdate) {
+          updateManager.onUpdateReady(function () {
+            wepy.showModal({
+              title: '更新提示',
+              content: '新版本已经准备好，是否重启应用？',
+              success: function (res) {
+                if (res.confirm) {
+                  // 新的版本已经下载好，调用 applyUpdate 应用新版本并重启
+                  updateManager.applyUpdate()
+                }
+              }
+            })
+          })
+        }
+      })
+
+      // 新版本下载失败
+      updateManager.onUpdateFailed(function () {
+        wepy.showModal({
+          title: '重要提示',
+          content: '新版本更新失败，请您删除当前小程序，重新搜索打开哟~',
+          success: function (res) {
+            console.log('点击了确定')
+          }
+        })
+      })
+    } else {
+      wepy.showModal({
+        title: '重要提示',
+        content: '当前微信版本过低，无法使用该功能，请升级到最新微信版本后重试。'
+      })
+    }
   }
 }
 </script>
