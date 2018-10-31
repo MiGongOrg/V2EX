@@ -1,10 +1,10 @@
 # V2EX 小程序，基于 WePY
 
-<img width="25%" src="src/images/review/new.jpg"/><img width="25%" src="src/images/review/hot.jpg"/><img width="25%" src="src/images/review/article.jpg"/><img width="25%" src="src/images/review/comment.jpg"/>
+<img width="25%" src="./review/new.jpg"/><img width="25%" src="./review/hot.jpg"/><img width="25%" src="./review/article.jpg"/><img width="25%" src="./review/comment.jpg"/>
 
 ---
 
-<img width="25%" src="src/images/review/node.jpg"/><img width="25%" src="src/images/review/node_page.jpg"/><img width="25%" src="src/images/review/user.jpg"/><img width="25%" src="src/images/review/user_nothing.jpg"/>
+<img width="25%" src="./review/node.jpg"/><img width="25%" src="./review/node_page.jpg"/><img width="25%" src="./review/user.jpg"/><img width="25%" src="./review/user_nothing.jpg"/>
 
 ---
 

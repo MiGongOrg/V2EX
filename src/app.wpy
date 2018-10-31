@@ -11,6 +11,7 @@ export default class extends wepy.app {
       'pages/hot',
       'pages/node',
       'pages/user',
+      'pages/about',
       'pages/article',
       'pages/nodeAll',
       'pages/nodeList'
@@ -43,6 +44,12 @@ export default class extends wepy.app {
         'iconPath': 'images/ic_node.png',
         'pagePath': 'pages/node',
         'text': '节点'
+      },
+      {
+        'selectedIconPath': 'images/ic_my_selected.png',
+        'iconPath': 'images/ic_my.png',
+        'pagePath': 'pages/about',
+        'text': '关于'
       }]
     }
   }

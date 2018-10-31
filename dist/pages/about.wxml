@@ -1,0 +1,23 @@
+
+  <view class="aboutContainer">
+    <view class="logo">
+      <image src="../images/v2ex.png"/>
+    </view>
+    <view class="aboutMore">
+      <button class="aboutItem" open-type="feedback">
+        <text class="iconfont icon-comment"/>
+        <text class="aboutText">意见反馈</text>
+        <text class="iconfont icon-right"/>
+      </button>
+      <button class="aboutItem" bindtap="copyWechat" data-text="migongorg">
+        <text class="iconfont icon-friendadd"/>
+        <text class="aboutText">加微信</text>
+        <text class="iconfont icon-right"/>
+      </button>
+      <button class="aboutItem" bindtap="navigateToMiniProgram">
+        <text class="iconfont icon-appreciate"/>
+        <text class="aboutText">给赞</text>
+        <text class="iconfont icon-right"/>
+      </button>
+    </view>
+  </view>

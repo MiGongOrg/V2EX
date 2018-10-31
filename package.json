@@ -1,6 +1,6 @@
 {
   "name": "V2EX",
-  "version": "1.0.0",
+  "version": "1.0.23",
   "description": "",
   "main": "dist/app.js",
   "scripts": {
